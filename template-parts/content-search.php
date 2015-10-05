@@ -2,8 +2,6 @@
 /**
  * The template part for displaying results in search pages
  *
- * Learn more: http://codex.wordpress.org/Template_Hierarchy
- *
  * @package WordPress
  * @subpackage Twenty_Sixteen
  * @since Twenty Sixteen 1.0
@@ -17,20 +15,38 @@
 
 	<?php twentysixteen_post_thumbnail(); ?>
 
-	<div class="entry-summary">
-		<?php the_excerpt(); ?>
-	</div><!-- .entry-summary -->
+	<?php twentysixteen_excerpt(); ?>
 
-	<?php if ( 'post' == get_post_type() ) : ?>
+	<?php if ( 'post' === get_post_type() ) : ?>
 
 		<footer class="entry-footer">
 			<?php twentysixteen_entry_meta(); ?>
-			<?php edit_post_link( esc_html__( 'Edit', 'twentysixteen' ), '<span class="edit-link">', '</span>' ); ?>
+			<?php
+				edit_post_link(
+					sprintf(
+						/* translators: %s: Name of current post */
+						__( 'Edit %s', 'twentysixteen' ),
+						the_title( '<span class="screen-reader-text">"', '"</span>', false )
+					),
+					'<span class="edit-link">',
+					'</span>'
+				);
+			?>
 		</footer><!-- .entry-footer -->
 
 	<?php else : ?>
 
-		<?php edit_post_link( esc_html__( 'Edit', 'twentysixteen' ), '<footer class="entry-footer"><span class="edit-link">', '</span></footer><!-- .entry-footer -->' ); ?>
+		<?php
+			edit_post_link(
+				sprintf(
+					/* translators: %s: Name of current post */
+					__( 'Edit %s', 'twentysixteen' ),
+					the_title( '<span class="screen-reader-text">', '</span>', false )
+				),
+				'<footer class="entry-footer"><span class="edit-link">',
+				'</span></footer><!-- .entry-footer -->'
+			);
+		?>
 
 	<?php endif; ?>
 </article><!-- #post-## -->
